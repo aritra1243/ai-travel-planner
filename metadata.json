@@ -1,0 +1,6 @@
+{
+  "name": "AI Travel Planner",
+  "description": "A relaxing AI-powered travel planning companion that crafts beautiful itineraries, maps itineraries, projections budgets, and forecasts weather.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

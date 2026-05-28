@@ -1,0 +1,30 @@
+# Node.js dependencies
+**/node_modules/
+**/dist/
+.eslintcache
+
+# Python environment and cache
+**/venv/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local Database files
+*.sqlite3
+**/db.sqlite3
+
+# Environment and secrets configuration
+**/.env
+**/.env.local
+**/.env.production
+
+# System & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
