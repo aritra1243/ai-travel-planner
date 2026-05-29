@@ -545,23 +545,31 @@ def generate_itinerary(
         )
 
         raw = (response.text or "").strip()
+        # Strip markdown code fences if present
         if raw.startswith("```"):
-            raw = raw.split("\n", 1)[-1]
-            if raw.endswith("```"):
-                raw = raw.rsplit("```", 1)[0]
+            lines = raw.split("\n")
+            raw = "\n".join(lines[1:])  # drop first ```json line
+        if raw.endswith("```"):
+            raw = raw.rsplit("```", 1)[0]
+        raw = raw.strip()
 
-        data = json.loads(raw.strip())
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError as je:
+            logger.warning(f"[AI] JSON parse failed ({je}) — falling back to demo mode")
+            return build_demo_itinerary(destination, budget, currency, days_count, travel_style, pace, starting_location)
+
         logger.info(f"[AI] Successfully generated itinerary with {len(data.get('daily_itinerary', []))} days")
         return data
 
     except Exception as e:
         err_str = str(e)
-        # Quota exhausted — fall back to demo data silently
-        if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str or "quota" in err_str.lower():
-            logger.warning(f"[AI] Quota exceeded — switching to demo mode. Error: {err_str[:120]}")
+        # Quota exhausted or import error — fall back to demo data
+        if any(x in err_str for x in ["429", "RESOURCE_EXHAUSTED", "quota", "ModuleNotFoundError", "ImportError", "cannot import"]):
+            logger.warning(f"[AI] Falling back to demo mode. Reason: {err_str[:150]}")
             return build_demo_itinerary(destination, budget, currency, days_count, travel_style, pace, starting_location)
-        # Other errors — re-raise so the view can return a proper 500
-        logger.error(f"[AI] Generation failed: {e}")
+        # Other errors — re-raise so the view returns a 500 with details
+        logger.error(f"[AI] Generation failed: {type(e).__name__}: {e}")
         raise
 
 
