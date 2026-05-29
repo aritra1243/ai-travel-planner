@@ -102,8 +102,9 @@ if DATABASE_URL:
     DATABASES['default']['OPTIONS'].update({
         'sslmode': 'require',
         'connect_timeout': 30,
-        'prepared_statements': False,  # Required for PgBouncer (Supabase pooler) transaction mode
     })
+    # Disable server-side cursors for PgBouncer (Supabase pooler) transaction mode
+    DATABASES['default']['DISABLE_SERVER_SIDE_CURSORS'] = True
 elif DB_HOST and DB_PASSWORD:
     DATABASES = {
         'default': {
@@ -113,10 +114,10 @@ elif DB_HOST and DB_PASSWORD:
             'PASSWORD': DB_PASSWORD,
             'HOST': DB_HOST,
             'PORT': config('DB_PORT', default='6543'),  # Supabase pooler port
+            'DISABLE_SERVER_SIDE_CURSORS': True,        # Required for PgBouncer transaction mode
             'OPTIONS': {
-                'sslmode': 'require',           # Required by Supabase
-                'connect_timeout': 30,           # Longer timeout for cold starts
-                'prepared_statements': False,    # Required for PgBouncer transaction mode
+                'sslmode': 'require',      # Required by Supabase
+                'connect_timeout': 30,     # Longer timeout for cold starts
             },
         }
     }
