@@ -216,7 +216,7 @@ export default function Dashboard({ user, trips, onSelectTrip, onStartGenerator,
             </div>
             <h4 className="font-serif text-xl font-bold text-slate-800 mb-2">Your journal is empty</h4>
             <p className="text-sm text-slate-500 max-w-sm mx-auto mb-7 leading-relaxed">
-              Generate your first AI-powered travel itinerary. Tell us where you want to go and Gemini will plan everything.
+              Generate your first AI-powered travel itinerary. Tell us where you want to go and our AI will plan everything.
             </p>
             <button
               onClick={onStartGenerator}

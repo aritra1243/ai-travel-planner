@@ -24,7 +24,7 @@ const STATS = [
 ];
 
 const FEATURES = [
-  { icon: <Sparkles className="w-6 h-6" />, title: "AI Itinerary Builder", description: "Powered by Gemini AI, get day-by-day schedules optimized for your travel style, interests, and pace.", color: "from-violet-500 to-purple-600", glow: "rgba(139,92,246,0.25)" },
+  { icon: <Sparkles className="w-6 h-6" />, title: "AI Itinerary Builder", description: "Get day-by-day schedules optimized for your travel style, interests, and pace.", color: "from-violet-500 to-purple-600", glow: "rgba(139,92,246,0.25)" },
   { icon: <Map className="w-6 h-6" />, title: "Interactive Maps", description: "All your destinations plotted on OpenStreetMap — pins, routes, and attractions all in one place.", color: "from-emerald-500 to-teal-600", glow: "rgba(16,185,129,0.25)" },
   { icon: <DollarSign className="w-6 h-6" />, title: "Smart Budget Estimator", description: "AI-powered cost breakdown for accommodation, dining, transport, and activities.", color: "from-amber-500 to-orange-600", glow: "rgba(245,158,11,0.25)" },
   { icon: <CloudSun className="w-6 h-6" />, title: "Weather Insights", description: "Seasonal climate data and smart packing recommendations for any destination.", color: "from-sky-500 to-blue-600", glow: "rgba(14,165,233,0.25)" },
@@ -46,7 +46,7 @@ const PLANS = [
 
 const HOW_IT_WORKS = [
   { step: "01", title: "Enter Your Destination", desc: "Tell us where you're going, your dates, budget, and travel interests.", icon: <Navigation className="w-7 h-7" />, color: "#8b9c86" },
-  { step: "02", title: "AI Generates Your Plan", desc: "Gemini AI crafts a detailed day-by-day itinerary in under 30 seconds.", icon: <Cpu className="w-7 h-7" />, color: "#6366f1" },
+  { step: "02", title: "AI Generates Your Plan", desc: "Our advanced AI crafts a detailed day-by-day itinerary in under 30 seconds.", icon: <Cpu className="w-7 h-7" />, color: "#6366f1" },
   { step: "03", title: "Explore & Customize", desc: "View your trip on an interactive map, check budgets, and share with friends.", icon: <Map className="w-7 h-7" />, color: "#f43f5e" },
 ];
 
@@ -222,7 +222,22 @@ export default function LandingPage({ onGetStarted, onExplorePricing, onExplore 
               transition={{ duration: 0.9, ease: "easeOut" }}
             >
               {/* Badge */}
-
+              <motion.div
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold mb-8 tracking-wide"
+                style={{
+                  background: "rgba(139,156,134,0.15)",
+                  border: "1px solid rgba(139,156,134,0.35)",
+                  color: "#b5c4b1",
+                  boxShadow: "0 0 20px rgba(139,156,134,0.1)"
+                }}
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <Sparkles className="w-3.5 h-3.5" />
+                Next-Gen AI Itinerary Planner
+              </motion.div>
 
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-[4.5rem] font-bold text-white leading-[1.05] mb-5 sm:mb-6 tracking-tight">
                 Plan your
@@ -816,7 +831,7 @@ export default function LandingPage({ onGetStarted, onExplorePricing, onExplore 
                   <span className="text-[9px] font-bold uppercase tracking-widest" style={{ color: "rgba(139,156,134,0.7)" }}>AI Travel Planner</span>
                 </div>
               </div>
-              <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.25)" }}>Free Forever Tier · Powered by Gemini AI</p>
+              <p className="text-xs mt-2" style={{ color: "rgba(255,255,255,0.25)" }}>Free Forever Tier · Powered by Advanced AI</p>
             </div>
 
             <div className="flex flex-wrap justify-center gap-6 text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>

@@ -16,7 +16,7 @@ schema_view = get_schema_view(
         description=(
             "Full REST API for the AI Travel Planner SaaS.\n\n"
             "**Authentication**: Use JWT Bearer token.\n"
-            "**AI**: Powered by Google Gemini 2.0.\n"
+            "**AI**: Powered by advanced AI models.\n"
             "**Payments**: Razorpay (INR).\n"
         ),
         contact=openapi.Contact(email="support@vagabond.app"),
