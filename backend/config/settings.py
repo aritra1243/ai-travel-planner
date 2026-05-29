@@ -3,6 +3,7 @@ Django settings for AI Travel Planner backend.
 """
 
 import os
+import dj_database_url
 from pathlib import Path
 from datetime import timedelta
 # pyrefly: ignore [missing-import]
@@ -80,20 +81,42 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # ─── Database (PostgreSQL via Supabase with SQLite Fallback) ──────────────────
+# Priority 1: Full DATABASE_URL (set this in Render's Environment Variables)
+DATABASE_URL = config('DATABASE_URL', default='')
+
+# Priority 2: Individual DB_* variables
 DB_HOST = config('DB_HOST', default='')
 DB_PASSWORD = config('DB_PASSWORD', default='')
 
-if DB_HOST and DB_PASSWORD:
+if DATABASE_URL:
+    # Parse the full connection string (e.g. postgresql://user:pass@host:5432/db)
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
+    # Force SSL and IPv4-friendly options required by Supabase on Render
+    DATABASES['default'].setdefault('OPTIONS', {})
+    DATABASES['default']['OPTIONS'].update({
+        'sslmode': 'require',
+        'connect_timeout': 30,
+        'prepared_statements': False,  # Required for PgBouncer (Supabase pooler) transaction mode
+    })
+elif DB_HOST and DB_PASSWORD:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config('DB_NAME', default='vagabond_db'),
-            'USER': config('DB_USER', default='postgres'),
+            'NAME': config('DB_NAME', default='postgres'),
+            'USER': config('DB_USER', default='postgres.yuykuslohgihoeuauidq'),
             'PASSWORD': DB_PASSWORD,
             'HOST': DB_HOST,
-            'PORT': config('DB_PORT', default='5432'),
+            'PORT': config('DB_PORT', default='6543'),  # Supabase pooler port
             'OPTIONS': {
-                'connect_timeout': 10,
+                'sslmode': 'require',           # Required by Supabase
+                'connect_timeout': 30,           # Longer timeout for cold starts
+                'prepared_statements': False,    # Required for PgBouncer transaction mode
             },
         }
     }
