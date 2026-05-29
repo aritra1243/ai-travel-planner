@@ -222,22 +222,7 @@ export default function LandingPage({ onGetStarted, onExplorePricing, onExplore 
               transition={{ duration: 0.9, ease: "easeOut" }}
             >
               {/* Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: -12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold mb-8 tracking-wide"
-                style={{
-                  background: "rgba(139,156,134,0.15)",
-                  border: "1px solid rgba(139,156,134,0.35)",
-                  color: "#b5c4b1",
-                  boxShadow: "0 0 20px rgba(139,156,134,0.1)"
-                }}
-              >
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <Sparkles className="w-3.5 h-3.5" />
-                Powered by Google Gemini AI
-              </motion.div>
+
 
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-[4.5rem] font-bold text-white leading-[1.05] mb-5 sm:mb-6 tracking-tight">
                 Plan your
