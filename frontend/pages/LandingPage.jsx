@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, lazy, Suspense } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 import {
   Compass, Sparkles, Map, ArrowRight, Globe, Zap,
@@ -6,9 +6,7 @@ import {
   Play, Shield, Cpu, Navigation
 } from "lucide-react";
 
-// Lazy-load 3D components (heavy)
-const Globe3D = lazy(() => import("../components/Globe3D.jsx"));
-const ParticleBackground = lazy(() => import("../components/ParticleBackground.jsx"));
+
 
 /* ─── Data ───────────────────────────────────────────────────────── */
 const DESTINATIONS = [
@@ -182,12 +180,7 @@ export default function LandingPage({ onGetStarted, onExplorePricing, onExplore 
         className="relative min-h-screen flex items-center overflow-hidden"
         style={{ background: "linear-gradient(135deg, #0a120a 0%, #1a2318 40%, #0f1a0e 70%, #060e06 100%)" }}
       >
-        {/* 3D Particle Background */}
-        <Suspense fallback={null}>
-          <ParticleBackground />
-        </Suspense>
-
-        {/* Grid overlay */}
+        {/* Animated grid overlay */}
         <div
           className="absolute inset-0 opacity-[0.06]"
           style={{
@@ -313,80 +306,146 @@ export default function LandingPage({ onGetStarted, onExplorePricing, onExplore 
               </motion.div>
             </motion.div>
 
-            {/* Right: 3D Globe */}
+            {/* Right: Image Mosaic */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.1, delay: 0.15, ease: "easeOut" }}
-              className="relative hidden lg:flex items-center justify-center"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+              className="relative hidden lg:block"
             >
-              {/* Globe container with glow */}
-              <div className="relative w-[520px] h-[520px]">
-                <div
-                  className="absolute inset-0 rounded-full"
-                  style={{
-                    background: "radial-gradient(circle, rgba(139,156,134,0.08) 0%, transparent 70%)",
-                    filter: "blur(30px)"
-                  }}
-                />
-                <Suspense fallback={
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="w-48 h-48 rounded-full border-2 border-sage/30 animate-pulse" style={{ borderColor: "rgba(139,156,134,0.3)" }} />
+              {/* Mosaic Grid */}
+              <div className="relative w-[520px] h-[500px]">
+
+                {/* Glow backdrop */}
+                <div className="absolute inset-0 rounded-3xl pointer-events-none"
+                  style={{ background: "radial-gradient(ellipse 80% 80% at 50% 50%, rgba(139,156,134,0.12) 0%, transparent 70%)", filter: "blur(40px)" }} />
+
+                {/* Image 1 — Large top-left */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.92 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="absolute top-0 left-0 w-[58%] h-[54%] rounded-2xl overflow-hidden shadow-2xl"
+                  style={{ border: "1.5px solid rgba(139,156,134,0.25)" }}
+                >
+                  <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=85"
+                    alt="Tokyo" className="w-full h-full object-cover"
+                    style={{ animation: "kenBurns 16s ease-in-out infinite alternate" }} />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(160deg, transparent 50%, rgba(10,18,10,0.7) 100%)" }} />
+                  <div className="absolute bottom-3 left-3">
+                    <span className="text-white font-serif text-lg font-bold drop-shadow-lg">Tokyo</span>
+                    <p className="text-white/60 text-[10px] font-semibold uppercase tracking-wider">Japan</p>
                   </div>
-                }>
-                  <Globe3D className="w-full h-full" />
-                </Suspense>
+                </motion.div>
+
+                {/* Image 2 — Top-right narrow */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.92 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  className="absolute top-0 right-0 w-[38%] h-[38%] rounded-2xl overflow-hidden shadow-2xl"
+                  style={{ border: "1.5px solid rgba(235,220,185,0.2)" }}
+                >
+                  <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=400&q=85"
+                    alt="Paris" className="w-full h-full object-cover"
+                    style={{ animation: "kenBurns 18s ease-in-out infinite alternate-reverse" }} />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 40%, rgba(10,18,10,0.75) 100%)" }} />
+                  <div className="absolute bottom-2.5 left-2.5">
+                    <span className="text-white font-serif text-sm font-bold drop-shadow-lg">Paris</span>
+                  </div>
+                </motion.div>
+
+                {/* Image 3 — Bottom-left */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.92 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.7 }}
+                  className="absolute bottom-0 left-0 w-[38%] h-[42%] rounded-2xl overflow-hidden shadow-2xl"
+                  style={{ border: "1.5px solid rgba(99,102,241,0.25)" }}
+                >
+                  <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&q=85"
+                    alt="Bali" className="w-full h-full object-cover"
+                    style={{ animation: "kenBurns 20s ease-in-out infinite alternate" }} />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 40%, rgba(10,18,10,0.75) 100%)" }} />
+                  <div className="absolute bottom-2.5 left-2.5">
+                    <span className="text-white font-serif text-sm font-bold drop-shadow-lg">Bali</span>
+                  </div>
+                </motion.div>
+
+                {/* Image 4 — Bottom-right large */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.92 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.9 }}
+                  className="absolute bottom-0 right-0 w-[58%] h-[42%] rounded-2xl overflow-hidden shadow-2xl"
+                  style={{ border: "1.5px solid rgba(244,63,94,0.2)" }}
+                >
+                  <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=600&q=85"
+                    alt="Santorini" className="w-full h-full object-cover"
+                    style={{ animation: "kenBurns 14s ease-in-out infinite alternate-reverse" }} />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(160deg, transparent 50%, rgba(10,18,10,0.75) 100%)" }} />
+                  <div className="absolute bottom-3 left-3">
+                    <span className="text-white font-serif text-base font-bold drop-shadow-lg">Santorini</span>
+                    <p className="text-white/60 text-[10px] font-semibold uppercase tracking-wider">Greece</p>
+                  </div>
+                </motion.div>
+
+                {/* Center gap accent — glowing dot */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full"
+                  style={{ background: "rgba(139,156,134,0.8)", boxShadow: "0 0 20px 8px rgba(139,156,134,0.35)" }} />
+
+                {/* Floating badge — Budget Ready */}
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -top-5 -right-6 glass-card-dark rounded-2xl p-3 shadow-2xl z-20"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+                      <DollarSign className="w-4 h-4 text-emerald-400" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-white">Budget Ready</p>
+                      <p className="text-[10px] text-white/50">AI estimated</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Floating badge — Weather */}
+                <motion.div
+                  animate={{ y: [0, 9, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+                  className="absolute -bottom-5 -left-6 glass-card-dark rounded-2xl p-3 shadow-2xl z-20"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-sky-500/20 flex items-center justify-center">
+                      <CloudSun className="w-4 h-4 text-sky-400" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-white">Weather Info</p>
+                      <p className="text-[10px] text-white/50">Seasonal forecast</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Floating badge — AI Plan */}
+                <motion.div
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+                  className="absolute top-[44%] -right-8 glass-card-dark rounded-2xl p-3 shadow-2xl z-20"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-violet-500/20 flex items-center justify-center">
+                      <Sparkles className="w-4 h-4 text-violet-400" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-white">AI Plan Ready</p>
+                      <p className="text-[10px] text-white/50">In 28 seconds</p>
+                    </div>
+                  </div>
+                </motion.div>
+
               </div>
-
-              {/* Floating UI cards */}
-              <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-4 -right-4 glass-card-dark rounded-2xl p-3.5 shadow-2xl"
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-                    <DollarSign className="w-4 h-4 text-emerald-400" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-white">Budget Ready</p>
-                    <p className="text-[10px] text-white/50">AI estimated</p>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-                className="absolute -bottom-2 -left-6 glass-card-dark rounded-2xl p-3.5 shadow-2xl"
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-sky-500/20 flex items-center justify-center">
-                    <CloudSun className="w-4 h-4 text-sky-400" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-white">Weather Info</p>
-                    <p className="text-[10px] text-white/50">Seasonal forecast</p>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
-                className="absolute top-1/2 -right-8 glass-card-dark rounded-2xl p-3.5 shadow-2xl"
-                style={{ transform: "translateY(-50%)" }}
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-violet-500/20 flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 text-violet-400" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-white">AI Plan Ready</p>
-                    <p className="text-[10px] text-white/50">In 28 seconds</p>
-                  </div>
-                </div>
-              </motion.div>
             </motion.div>
           </div>
 

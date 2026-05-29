@@ -71,6 +71,13 @@ body {
   50% { transform: translateY(-8px); }
 }
 
+@keyframes kenBurns {
+  0%   { transform: scale(1)    translateX(0%)   translateY(0%); }
+  33%  { transform: scale(1.08) translateX(-2%)  translateY(-1%); }
+  66%  { transform: scale(1.05) translateX(2%)   translateY(1%); }
+  100% { transform: scale(1.1)  translateX(-1%)  translateY(-2%); }
+}
+
 @keyframes float-delayed {
   0%, 100% { transform: translateY(0px) rotate(-2deg); }
   50% { transform: translateY(-10px) rotate(2deg); }
