@@ -278,7 +278,7 @@ export default function TripGenerator({ user, onBack, onTripGenerated }) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-6" style={{ fontFamily: "'Inter', sans-serif" }}>
+    <div className="max-w-4xl mx-auto py-6 px-4 sm:px-6" style={{ fontFamily: "'Inter', sans-serif" }}>
 
       {/* Back */}
       <button onClick={onBack}
@@ -330,27 +330,26 @@ export default function TripGenerator({ user, onBack, onTripGenerated }) {
                 value={startingLocation}
                 onChange={e => { setStartingLocation(e.target.value); setShowStartSugg(true); }}
                 onFocus={() => startSuggestions.length > 0 && setShowStartSugg(true)}
-                className="input-field pl-11 pr-32"
+                className="input-field pl-11 pr-24 sm:pr-32"
               />
               {/* Auto-detect button */}
               <button
                 type="button"
                 onClick={detectCurrentLocation}
                 disabled={locating}
-                className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all disabled:opacity-60"
+                className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all disabled:opacity-60"
                 style={{ background: "linear-gradient(135deg, #8b9c86, #6d7c69)", color: "#fff" }}
                 title="Detect my current location"
               >
-                {locating
                   ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
                   : <LocateFixed className="w-3.5 h-3.5" />}
-                {locating ? "Locating…" : "Use GPS"}
+                <span className="hidden sm:inline">{locating ? "Locating…" : "Use GPS"}</span>
               </button>
 
               {startingLocation && !locating && (
                 <button type="button"
                   onClick={() => { setStartingLocation(""); setStartSuggestions([]); }}
-                  className="absolute right-28 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                  className="absolute right-20 sm:right-28 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
                   <X className="w-4 h-4" />
                 </button>
               )}
@@ -426,7 +425,7 @@ export default function TripGenerator({ user, onBack, onTripGenerated }) {
           </div>
 
           {/* Dates */}
-          <div className="grid sm:grid-cols-2 gap-4 mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
             <div>
               <label className="text-xs font-semibold text-slate-600 block mb-1.5 pl-1 flex items-center gap-1">
                 <Calendar className="w-3.5 h-3.5" style={{ color: "#8b9c86" }} /> Departure Date *
@@ -485,7 +484,7 @@ export default function TripGenerator({ user, onBack, onTripGenerated }) {
             <Sparkles className="w-4 h-4" style={{ color: "#8b9c86" }} /> Your Travel Style
           </h3>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 mb-6">
             {TRAVEL_STYLES.map(s => (
               <button key={s.label} type="button" onClick={() => setTravelStyle(s.label)}
                 className={`p-4 rounded-2xl border-2 text-left transition-all ${
@@ -539,7 +538,7 @@ export default function TripGenerator({ user, onBack, onTripGenerated }) {
           </div>
 
           {/* Custom interest */}
-          <div className="flex gap-2 max-w-sm">
+          <div className="flex gap-2 w-full sm:max-w-sm">
             <input type="text" placeholder="Add custom interest..." value={customInterest}
               onChange={e => setCustomInterest(e.target.value)}
               onKeyDown={e => {

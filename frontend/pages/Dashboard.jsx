@@ -68,13 +68,13 @@ export default function Dashboard({ user, trips, onSelectTrip, onStartGenerator,
   ];
 
   return (
-    <div className="max-w-7xl mx-auto py-8 px-6" style={{ fontFamily: "'Inter', sans-serif" }}>
+    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6" style={{ fontFamily: "'Inter', sans-serif" }}>
 
       {/* ── Welcome Banner ─────────────────────────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative rounded-3xl overflow-hidden mb-8 p-8"
+        className="relative rounded-3xl overflow-hidden mb-6 p-5 sm:p-8"
         style={{
           background: "linear-gradient(135deg, #1a2318 0%, #2d3d2a 60%, #1e2d1b 100%)",
           boxShadow: "0 10px 40px rgba(0,0,0,0.15)"
@@ -87,20 +87,20 @@ export default function Dashboard({ user, trips, onSelectTrip, onStartGenerator,
         <div className="absolute -top-16 -right-16 w-60 h-60 rounded-full blur-3xl opacity-20"
           style={{ background: "radial-gradient(circle, #8b9c86, transparent)" }} />
 
-        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#8b9c86" }}>
               Welcome back
             </p>
-            <h2 className="font-serif text-3xl font-bold text-white mb-1">{user.name}</h2>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-1">{user.name}</h2>
             <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
               {usedTrips === 0 ? "Ready for your first adventure?" : `${usedTrips} trip${usedTrips !== 1 ? "s" : ""} planned. Keep exploring!`}
             </p>
           </div>
 
-          <div className="flex items-center gap-4 shrink-0">
+          <div className="flex flex-wrap items-center gap-3 shrink-0 w-full sm:w-auto">
             {/* Quota tracker */}
-            <div className="rounded-2xl p-4 min-w-[170px]"
+            <div className="rounded-2xl p-3 sm:p-4 flex-1 sm:flex-none sm:min-w-[170px]"
               style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)" }}>
               <div className="flex items-center gap-1.5 mb-2">
                 <Crown className="w-3.5 h-3.5 text-amber-400" />
@@ -122,7 +122,7 @@ export default function Dashboard({ user, trips, onSelectTrip, onStartGenerator,
 
             <button
               onClick={onStartGenerator}
-              className="flex items-center gap-2 text-sm font-bold px-5 py-3 rounded-full text-slate-900 transition-all hover:scale-105"
+              className="flex items-center justify-center gap-2 text-sm font-bold px-5 py-3 rounded-full text-slate-900 transition-all hover:scale-105 flex-1 sm:flex-none"
               style={{ background: "linear-gradient(135deg, #ebdcb9, #d4c49a)", boxShadow: "0 4px 16px rgba(235,220,185,0.4)" }}
             >
               <Plus className="w-4 h-4" />
@@ -133,7 +133,7 @@ export default function Dashboard({ user, trips, onSelectTrip, onStartGenerator,
       </motion.div>
 
       {/* ── Stats Row ──────────────────────────────────────────────────────── */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {statsData.map((stat, i) => (
           <motion.div
             key={i}
@@ -159,7 +159,7 @@ export default function Dashboard({ user, trips, onSelectTrip, onStartGenerator,
       {/* ── Trips Section ──────────────────────────────────────────────────── */}
       <div>
         {/* Header row */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
           <div className="flex items-center gap-2">
             <BookOpen className="w-5 h-5" style={{ color: "#8b9c86" }} />
             <h3 className="font-serif text-xl font-bold text-slate-800">My Travel Journals</h3>
@@ -172,7 +172,7 @@ export default function Dashboard({ user, trips, onSelectTrip, onStartGenerator,
           </div>
 
           {trips.length > 0 && (
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               {/* Search */}
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
@@ -181,7 +181,7 @@ export default function Dashboard({ user, trips, onSelectTrip, onStartGenerator,
                   placeholder="Search trips..."
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  className="pl-9 pr-3 py-2 text-xs rounded-full border border-stone-200 bg-white outline-none focus:border-sage transition-all w-40 focus:w-48"
+                  className="pl-9 pr-3 py-2 text-xs rounded-full border border-stone-200 bg-white outline-none focus:border-sage transition-all w-36 sm:w-40 focus:w-44 sm:focus:w-48"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 />
               </div>
@@ -207,7 +207,7 @@ export default function Dashboard({ user, trips, onSelectTrip, onStartGenerator,
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="rounded-3xl p-16 text-center border-2 border-dashed border-stone-200"
+            className="rounded-3xl p-8 sm:p-16 text-center border-2 border-dashed border-stone-200"
             style={{ background: "rgba(250,246,238,0.5)" }}
           >
             <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 animate-float"
@@ -232,7 +232,7 @@ export default function Dashboard({ user, trips, onSelectTrip, onStartGenerator,
               <p className="text-sm text-slate-500 text-center py-8">No trips matching "{search}"</p>
             )}
 
-            <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
               <AnimatePresence>
                 {displayTrips.map((trip, idx) => (
                   <TripCard

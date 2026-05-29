@@ -179,15 +179,15 @@ export default function TripDetails({ trip, onBack }) {
   });
 
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 print:p-0" style={{ fontFamily: "'Inter', sans-serif" }}>
+    <div className="max-w-7xl mx-auto py-4 sm:py-8 px-3 sm:px-4 md:px-6 print:p-0" style={{ fontFamily: "'Inter', sans-serif" }}>
 
       {/* ── Top Bar ─────────────────────────────────────────────────────────── */}
-      <div className="flex items-center justify-between gap-3 mb-6 print:hidden">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-4 print:hidden">
         <button onClick={onBack}
           className="flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-slate-800 px-4 py-2 rounded-full border border-stone-200 bg-white transition-all shadow-sm hover:shadow-md">
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Dashboard
         </button>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button onClick={handleShare} disabled={shareLoading || !!shareUrl}
             className="flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-full border border-stone-200 bg-white text-slate-600 hover:border-sage transition-all shadow-sm disabled:opacity-60">
             {shareLoading ? <Compass className="w-3.5 h-3.5 animate-spin" /> : <Share2 className="w-3.5 h-3.5" />}
@@ -230,8 +230,8 @@ export default function TripDetails({ trip, onBack }) {
           <div className="absolute inset-0 opacity-10"
             style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(139,156,134,0.8) 1px, transparent 0)", backgroundSize: "32px 32px" }} />
         </div>
-        <div className="absolute inset-0 flex items-end pb-6 px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between w-full gap-4">
+        <div className="absolute inset-0 flex items-end pb-4 sm:pb-6 px-4 sm:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between w-full gap-3">
             <div>
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-3"
                 style={{ background: "rgba(235,220,185,0.25)", color: "#ebdcb9", border: "1px solid rgba(235,220,185,0.3)", backdropFilter: "blur(8px)" }}>
@@ -255,7 +255,7 @@ export default function TripDetails({ trip, onBack }) {
                   </span>
                 </div>
               )}
-              <h2 className="font-serif text-4xl font-bold text-white mb-2">{trip.destination}</h2>
+              <h2 className="font-serif text-2xl sm:text-4xl font-bold text-white mb-2">{trip.destination}</h2>
               <div className="flex flex-wrap items-center gap-3 text-xs text-white/70">
                 <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" />{startF} — {endF}</span>
                 <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{totalDays} days</span>
@@ -263,7 +263,7 @@ export default function TripDetails({ trip, onBack }) {
                 {trip.travelStyle && <span className="px-2.5 py-0.5 rounded-full font-medium" style={{ background: "rgba(255,255,255,0.12)" }}>{trip.travelStyle}</span>}
               </div>
             </div>
-            <div className="shrink-0 rounded-2xl p-4 min-w-[160px]"
+            <div className="shrink-0 rounded-2xl p-3 sm:p-4 w-full md:w-auto md:min-w-[160px]"
               style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.18)" }}>
               <span className="text-[9px] text-white/60 font-semibold uppercase tracking-wider block mb-1">AI Cost Estimate</span>
               <span className="font-serif text-2xl font-bold text-amber-200">{currency} {trip.budgetEstimate.totalEstimate.toLocaleString()}</span>
@@ -307,8 +307,9 @@ export default function TripDetails({ trip, onBack }) {
           destination={trip.destination}
           originCity={originCity}
           interactive={true}
-          height="520px"
+          height="300px"
         />
+        <style>{"@media (min-width: 640px) { .map-responsive { height: 420px !important; } } @media (min-width: 1024px) { .map-responsive { height: 520px !important; } }"}</style>
       </div>
 
       {/* ── Journey Overview Strip ────────────────────────────────────────────── */}
@@ -351,7 +352,7 @@ export default function TripDetails({ trip, onBack }) {
       </div>
 
       {/* ── Day Planner + Side Panel ─────────────────────────────────────────── */}
-      <div className="grid lg:grid-cols-12 gap-6 mb-8 items-start">
+      <div className="grid lg:grid-cols-12 gap-4 sm:gap-6 mb-6 sm:mb-8 items-start">
 
         {/* Left: Day Planner */}
         <div className="lg:col-span-8 flex flex-col gap-5">
@@ -698,7 +699,7 @@ export default function TripDetails({ trip, onBack }) {
       </div>
 
       {/* ── Budget Breakdown ──────────────────────────────────────────────────── */}
-      <div className="card-premium p-6 sm:p-8 mb-8 print:border print:border-stone-300">
+      <div className="card-premium p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 print:border print:border-stone-300">
         <div className="flex items-center gap-2 mb-6 pb-3 border-b border-stone-100">
           <DollarSign className="w-5 h-5" style={{ color: "#8b9c86" }} />
           <h3 className="font-serif text-lg font-bold text-slate-800">Budget Breakdown</h3>
@@ -706,7 +707,7 @@ export default function TripDetails({ trip, onBack }) {
             {currency} {trip.budgetEstimate.totalEstimate.toLocaleString()} total
           </span>
         </div>
-        <div className="grid md:grid-cols-12 gap-8 items-start">
+        <div className="grid md:grid-cols-12 gap-5 sm:gap-8 items-start">
           <div className="md:col-span-7 flex flex-col gap-4">
             {[
               { label: "Accommodation",           key: "accommodation", color: "#10b981", icon: "🏨" },

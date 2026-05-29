@@ -201,7 +201,7 @@ export default function App() {
         setActiveTab={setActiveTab} 
         onLogout={handleLogout} 
       />
-      <main className="flex-1 pb-16">
+      <main className={`flex-1 ${["landing", "explore"].includes(activeTab) ? "" : "pb-16"}`}>
         {renderContent()}
       </main>
     </div>

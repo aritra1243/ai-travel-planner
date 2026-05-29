@@ -132,7 +132,7 @@ export default function Settings({ user, onUpgradeSuccess }) {
 
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-6 font-sans">
+    <div className="max-w-4xl mx-auto py-6 px-4 sm:px-6 font-sans">
       <div className="flex items-center gap-1.5 text-[#8b9c86] font-bold text-xs uppercase tracking-wider mb-2">
         <Crown className="w-5 h-5 text-amber-500 animate-bounce" />
         <span>Manage Account settings</span>
@@ -140,7 +140,7 @@ export default function Settings({ user, onUpgradeSuccess }) {
       <h2 className="font-serif text-3xl font-bold text-[#444c41] mb-8">Settings Desk</h2>
 
       {/* Tabs list */}
-      <div className="flex border-b border-stone-200 mb-8 gap-4 font-sans text-sm">
+      <div className="flex border-b border-stone-200 mb-6 sm:mb-8 gap-2 sm:gap-4 font-sans text-sm overflow-x-auto scrollbar-none">
         <button
           onClick={() => setActiveTab("plans")}
           className={`pb-3 font-semibold transition-all relative ${
@@ -162,7 +162,7 @@ export default function Settings({ user, onUpgradeSuccess }) {
       </div>
 
       {activeTab === "profile" ? (
-        <form onSubmit={handleSaveProfile} className="bg-white border border-[#ebdcb9]/40 p-6 sm:p-8 rounded-3xl shadow-sm max-w-xl">
+        <form onSubmit={handleSaveProfile} className="bg-white border border-[#ebdcb9]/40 p-4 sm:p-6 md:p-8 rounded-3xl shadow-sm w-full max-w-xl">
           <h3 className="font-serif text-lg font-bold text-slate-800 mb-6 border-b pb-3 flex items-center gap-2">
             <Heart className="w-4.5 h-4.5 text-[#8b9c86]" />
             Wanderer Profile
@@ -339,7 +339,7 @@ export default function Settings({ user, onUpgradeSuccess }) {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
             {/* Free */}
             <div className={`p-6 rounded-2xl border ${
               user.subscriptionType === "Free" 

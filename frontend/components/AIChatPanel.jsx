@@ -59,7 +59,7 @@ export default function AIChatPanel({ tripId, destination }) {
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 px-5 py-3 rounded-full text-white font-bold text-sm shadow-2xl"
+        className="fixed bottom-6 right-4 sm:right-6 z-40 flex items-center gap-2.5 px-4 sm:px-5 py-3 rounded-full text-white font-bold text-sm shadow-2xl"
         style={{
           background: "linear-gradient(135deg, #8b9c86, #6d7c69)",
           boxShadow: "0 8px 25px rgba(139,156,134,0.5)",
@@ -82,8 +82,8 @@ export default function AIChatPanel({ tripId, destination }) {
             transition={{ duration: 0.3 }}
             className="fixed bottom-6 right-6 z-50 flex flex-col rounded-3xl overflow-hidden shadow-2xl"
             style={{
-              width: "min(380px, calc(100vw - 2rem))",
-              height: "520px",
+              width: "min(380px, calc(100vw - 1.5rem))",
+              height: "min(520px, calc(100dvh - 6rem))",
               fontFamily: "'Inter', sans-serif",
               background: "white",
               border: "1px solid rgba(0,0,0,0.08)"
